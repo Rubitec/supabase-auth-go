@@ -9,8 +9,8 @@ import (
 	"regexp"
 	"testing"
 
-	backoff "github.com/cenkalti/backoff/v4"
-	jwt "github.com/golang-jwt/jwt/v4"
+	"github.com/cenkalti/backoff/v4"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -18,6 +18,7 @@ import (
 )
 
 const (
+	URL              = "https://%s.supabase.co/auth/v1"
 	projectReference = "project_ref"
 	apiKey           = "api_key"
 	jwtSecret        = "secret"
@@ -81,9 +82,9 @@ func withAdmin(c auth.Client) auth.Client {
 func TestMain(m *testing.M) {
 	// Please refer to ./setup/docker-compose.yaml and ./README.md for more info
 	// on this test set up.
-	client = auth.New(projectReference, apiKey).WithCustomAuthURL("http://localhost:9999")
-	autoconfirmClient = auth.New(projectReference, apiKey).WithCustomAuthURL("http://localhost:9998")
-	signupDisabledClient = auth.New(projectReference, apiKey).WithCustomAuthURL("http://localhost:9997")
+	client = auth.New(URL, projectReference, apiKey).WithCustomAuthURL("http://localhost:9999")
+	autoconfirmClient = auth.New(URL, projectReference, apiKey).WithCustomAuthURL("http://localhost:9998")
+	signupDisabledClient = auth.New(URL, projectReference, apiKey).WithCustomAuthURL("http://localhost:9997")
 
 	// Ensure the server is ready before running tests.
 	err := backoff.Retry(
@@ -129,7 +130,7 @@ func TestWithClient(t *testing.T) {
 	assert := assert.New(t)
 	require := require.New(t)
 
-	c := auth.New(projectReference, apiKey).WithCustomAuthURL("http://localhost:9999")
+	c := auth.New(URL, projectReference, apiKey).WithCustomAuthURL("http://localhost:9999")
 	h, err := c.HealthCheck()
 	require.NoError(err)
 	assert.Equal("GoTrue", h.Name)

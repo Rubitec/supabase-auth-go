@@ -1,6 +1,6 @@
 module github.com/Rubitec/supabase-auth-go
 
-go 1.18
+go 1.22.6
 
 require (
 	github.com/cenkalti/backoff/v4 v4.1.3

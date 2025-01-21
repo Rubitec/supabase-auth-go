@@ -13,7 +13,7 @@ func TestHealth(t *testing.T) {
 	assert := assert.New(t)
 	require := require.New(t)
 
-	client := auth.New(projectReference, apiKey).WithCustomAuthURL("http://localhost:9999")
+	client := auth.New(URL, projectReference, apiKey).WithCustomAuthURL("http://localhost:9999")
 	health, err := client.HealthCheck()
 	require.NoError(err)
 	assert.Equal(health.Name, "GoTrue")
