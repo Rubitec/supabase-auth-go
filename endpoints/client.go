@@ -1,7 +1,6 @@
 package endpoints
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 )
@@ -14,12 +13,11 @@ type Client struct {
 }
 
 func New(URL string, projectReference string, apiKey string) *Client {
-	//"https://%s.supabase.co/auth/v1"
 	var baseURL string
-	if projectReference == "" {
-		baseURL = URL
+	if URL == "" {
+		baseURL = "https://" + projectReference + ".supabase.co/auth/v1"
 	} else {
-		baseURL = fmt.Sprintf(URL, projectReference)
+		baseURL = URL
 	}
 	return &Client{
 		client: http.Client{
