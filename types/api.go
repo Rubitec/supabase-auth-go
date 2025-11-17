@@ -359,8 +359,9 @@ type HealthCheckResponse struct {
 }
 
 type InviteRequest struct {
-	Email string                 `json:"email"`
-	Data  map[string]interface{} `json:"data"`
+	Email      string                 `json:"email"`
+	Data       map[string]interface{} `json:"data"`
+	RedirectTo *string                `json:"redirect_to,omitempty"`
 }
 
 type InviteResponse struct {
